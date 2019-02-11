@@ -83,10 +83,10 @@ extension="pdo_mysql.so"
 
 If php files are getting downloaded instead of executing then put following code in .htaccess file
 PHP files are downloading instead of executing
-+==================
+==================
 AddHandler application/x-httpd-php5 .php
 Apache handler
-+==================
+==================
 
 
 Default apache handler
@@ -154,7 +154,7 @@ innodb_force_recovery = 1
 
 Replace database command:-
 --------------------------
-replace "103.108.220.137" "159.65.146.14" -- fabmake_av12.sql
+replace "http://domain.com" "https://domain.com" -- fabmake_av12.sql
 
 Command to reset from MySQL console:-
 =====================================
@@ -209,6 +209,12 @@ info.php content:-
 For auditing of account:-
 -------------------------
 # du -sch *
+
+
+To install Zend Optimizer:-
+---------------------------
+1. Login to your server via SSH
+2. Run: /scripts/installzendopt
 
 
 To Check SSL Certificate of website:-
@@ -291,9 +297,9 @@ maldet -q SCANID                              ===> (By default the quarantine is
 clamscan -ri /home/username/public_html/
 
 
-Handler issue :-
-----------------
-just edit .htaccess file. And uncomment the handler php line.
+To change the site URL from wp-admin backend:-
+----------------------------------------------
+For wp sites  >> go wp-admin >> setting >> general >> site URL
 
 
 To check Email:-
