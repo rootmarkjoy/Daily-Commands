@@ -37,7 +37,6 @@ To clear cache Command:-
 echo 2 > /proc/sys/vm/drop_caches      ====>  (To free up cache from server)
 /usr/sbin/exim -bpr | grep frozen | awk '{print $3}' | xargs exim -Mrm      =====>  (Remove frozen mails)
 kill -9 $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }') --->> TO kill zombies process
-
 cat /var/log/exim_mainlog | grep domain.com  | grep "2018-08-04" | wc -l 
 
 
@@ -69,8 +68,39 @@ Login node via ssh:-
 4. csf -r
 After that you can go to the /etc/hosts.allow file
 and add his local IP to the list of cpanel and whm
-
 ------------------------------------
+
+
+To check domain dns:-
+=====================
+lynx <999bazzar.in>
+
+
+Database Serach command:-
+=========================
+grep -lr "username_"
+
+
+To fix disk quota:-
+===================
+/scripts/fixquotas   -->   (To fix disk quota issue which show 0 size in whm)
+
+
+To remove history from shell:-
+==============================
+cat /dev/null > ~/.bash_history && history -c && exit
+
+
+To check database connections:-
+===============================
+mysqladmin processlist | grep unitech_uniman |wc -l
+
+
+To generate the DKIM key for the user (DKIM, SPF):-
+===================================================
+# /usr/local/cpanel/bin/dkim_keys_install <Username>
+# /usr/local/cpanel/bin/spf_installer <Username>
+
 
 For this pdo.so error:-
 Fatal error: Class 'PDO' not found in /home/alohakea/public_html/includes/database/database.inc on line 184
@@ -134,9 +164,25 @@ rm -fr wordpress latest.tar.gz
 cd public_html;find -type f -exec chmod 644 {} \;
 ---------------------------------------
 
+
+Litespeed:-
+-----------
+wget https://www.litespeedtech.com/packages/cpanel/lsws_whm_autoinstaller.sh
+chmod a+x lsws_whm_autoinstaller.sh
+./lsws_whm_autoinstaller.sh TRIAL 1 0 <username> <"password"> admin@domainname.com 1 0
+
+Site URL: https://www.litespeedtech.com/support/wiki/doku.php/litespeed_wiki:cpanel:auto-installer   ---> (For refernce)
+
+
 Update litespeed:-
 ------------------
 /usr/local/lsws/admin/misc/lsup.sh -f -v 5.2
+/etc/init.d/lsws stop/start
+
+
+Tomcat service restart command:-
+================================
+/etc/init.d/easy-tomcat7 restart
 
 
 Deleting tons of files in Linux (Argument list too long)
@@ -145,16 +191,21 @@ find . -type f -print -delete
 find . -name '*' | xargs rm
 
 
-/etc/init.d/lsws stop/start
-
 MySQL Issue:-
 =============
 basically, make a backup of your crashed tables. edit your /etc/my.cnf and add
 innodb_force_recovery = 1
 
+
+To restart mysql:-
+==================
+systemctl start mariadb.service
+
+
 Replace database command:-
 --------------------------
 replace "http://domain.com" "https://domain.com" -- fabmake_av12.sql
+sed -i -e "s/OldWord/NewWord/g" <FileName>
 
 Command to reset from MySQL console:-
 =====================================
@@ -201,9 +252,24 @@ To update cpanel license :-
 /usr/local/cpanel/cpkeyclt
 
 
+To update date and time:-
+-------------------------
+rdate -s rdate.cpanel.net
+
+
+To update date and time:-
+-------------------------
+ln  -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+
+
 info.php content:-
 -------------------
 <? phpinfo(); ?>
+
+
+Letsencrypt licence:-
+---------------------
+cat /etc/letsencrypt-cpanel.licence      ----->   (letsencrypt path)
 
 
 For auditing of account:-
@@ -224,9 +290,13 @@ echo | openssl s_client -servername www.my.pixelinternet.co.uk -connect www.my.p
 openssl ciphers -v | awk '{print $2}' | sort | uniq
 
 
+Server Load Commands:-
+======================
 Check the number of connections from an IP address currently connected to the server:-
 --------------------------------------------------------------------------------------
-# netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n
+netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n
+netstat -nap | grep :443 |wc -l          ======>  To check IP connection.
+netstat -atun | awk '{print $5}' | cut -d: -f1 | sed -e '/^$/d' |sort | uniq -c | sort -n      ====>   (To check Ip connection on server)
 
 
 Restore the backup commands:-
@@ -271,7 +341,6 @@ grep 123.123.123.123 /var/log/exim_mainlog | grep set_id
 https://serversitters.com/deciphering-csf-blocked-messages.html
 
 
-
 To correct the files/directory permissions inside public_html directory
 ======================
 find . -type d -exec chmod 755 {} \;
@@ -282,12 +351,19 @@ find . -type f -exec chmod 644 {} \;
 Cronjob Command :-
 ------------------
 crontab -e
-crontab -u samuelba -l
+crontab -u username -l
+
+
+WHMCS Cron run via script:-
+---------------------------
+/opt/cpanel/ea-php71/root/usr/bin/php -q /home/username/whmcsdata/crons/cron.php all -F -vvv
+/usr/local/bin/ea-php56 -q /home/username/public_html/artisan schedule all -F -vvv
+php -q /home/username/public_html/billing/crons/cron.php all -F -vvv
 
 
 maldet scan:-
 -------------
-maldet -a /home2/username/                    ===> (To scan a specific user's home directory)
+maldet -a /home/username/                    ===> (To scan a specific user's home directory)
 maldet -a /home/username/public_html/         ===> (To scan a specific user's home & public_html directory)
 maldet -b --scan-all /home?/?/public_?        ===> (To scan for all user's public_html and public_ftp in all home directories)
 maldet --report list                          ===> (List all scan reports time and SCANID)
@@ -308,6 +384,7 @@ To check Email:-
 # exim -bp --->  emails that are currently in queue
 /usr/sbin/exim -bpr | grep “<” | wc -l    --->  Number of emails in the que
 /usr/sbin/exim -bpr | grep frozen | wc -l   --->  How many Frozen mails on the queue
+exim -bpr | grep "<>" | awk '{print $3}' | xargs exim -Mrm  ----->  remove the fail email from server
 /usr/sbin/exim -bpr | grep frozen | awk '{print $3}' | xargs exim -Mrm  --->  Deleteing Frozen Messages
 
 
@@ -345,6 +422,13 @@ If Webmail.domainname.TLD is showing default page then do following:-
 Go to WHM >> Main >> Server Configuration >> Tweak Settings >> serach for "proxy subdomains" >> ON
 
 
+Roundcube database error:-                    ------>     (DATABASE ERROR: CONNECTION FAILED!)
+==========================
+rpm -e --nodeps cpanel-roundcubemail
+ /usr/local/cpanel/scripts/check_cpanel_rpms --fix
+ /usr/local/cpanel/bin/update-roundcube-sqlite-db --force
+
+
 IP blacklist check URL:-
 ------------------------
 link : http://www.blacklistalert.org/
@@ -367,9 +451,24 @@ RewriteRule . /index.php [L]
 
 -------------------
 chattr code for .htaccess:-
+===========================
 chattr +aiu .htaccess
 
+Set chatter to all files/folder inside folder:-
+===============================================
+chattr -R +aui public_html/
+ 
+to remove chatter:-
+===================
+chattr -R -aui public_html/
 -------------------
+
+
+To check a permission and ownership of file,folder or path of configuration file:-
+----------------------------------------------------------------------------------
+stat /etc/named.conf
+stat <file name>
+
 
 how to increase phpmyadmin import file size :-
 -----------------------------------------------
@@ -405,110 +504,25 @@ following command:
 => WHM -> Tweak Settings -> "Display File Usage information in the cPanel stats bar (inode count)"
 ----------------------------------------------------------------------------------------------------
 
-=========================================================================================
-Configure Server
-=========================================================================================
 
-Configure VPS (Cents os) :-
-===========================
-
-Firewall installation in shell:-
----------------------------------
-cd /usr/src
-rm -fv csf.tgz
-wget https://download.configserver.com/csf.tgz
-tar -xzf csf.tgz
-cd csf
-sh install.sh
+Bitninja SSL issue:-
+====================
+Recently there was an issue on divine, where SSL on domain names was showing SSL mismatch error. Restarting bitninja used to fix the issue.
+However, permanent fix is to apply commands below on the server. This is when newly installed SSL shows Certificate mismatch error
+------------------------------+
+rm -f /opt/bitninja-ssl-termination/etc/haproxy/certs/* 
+rm -f /opt/bitninja-ssl-termination/etc/haproxy/cert-list.lst 
+rm -f /opt/bitninja-ssl-termination/etc/haproxy/haproxy.cfg
+bitninjacli --module=SslTerminating --regenerate 
+bitninjacli --module=SslTerminating --reload
+------------------------------+
 
 
-
-ConfigServer Mail Queues:-
---------------------------
-To install or upgrade cmq simply do the following from the root shell via SSH:
-cd /usr/src
-rm -fv /usr/src/cmq.tgz
-wget http://download.configserver.com/cmq.tgz
-tar -xzf cmq.tgz
-cd cmq
-sh install.sh
-rm -Rfv /usr/src/cmq*
-
-Then login to WHM and scroll to the bottom of the left hand menu and you should see "ConfigServer Mail Queues"
-
-If you want to uninstall, simply:-
-----------------------------------
-cd /usr/src
-rm -fv /usr/src/cmq.tgz
-wget http://download.configserver.com/cmq.tgz
-tar -xzf cmq.tgz
-cd cmq
-sh uninstall.sh
-rm -Rfv /usr/src/cmq*
+To remove all the install which has been perform on server:-            ---->  (Make a clean vps server)
+============================================================
+yum history list|awk '$1 ~ /[0-9]+/ {print $1}'| while read a; do yum history undo -y $a; done
 
 
 
-Maldet installation:-
----------------------
-cd /usr/local/src/
-wget http://www.rfxn.com/downloads/maldetect-current.tar.gz
-tar -xzf maldetect-current.tar.gz
-cd maldetect-*
-sh ./install.sh or sudo sh ./install.sh
-maldet -d && maldet -u
 
-
-
-How to Update CURL with CPanel on CentOS:-
---------------------------------------------
-root@server1 [/usr/local/src]# /usr/bin/curl -V
-root@server1 [~]# cd /usr/local/src/
-root@server1 [/usr/local/src]#tar -xvf c-ares-1.10.0.tar.gz
-root@server1 [/usr/local/src]# wget http://curl.haxx.se/download/curl-7.46.0.tar.gz
-root@server1 [/usr/local/src]#tar -xvf curl-7.46.0.tar.gz
-root@server1 [/usr/local/src/c-ares-1.10.0]# ./configure
-root@server1 [/usr/local/src/c-ares-1.10.0]# make   or  make all-am   or  (refer this)--> <make && make install>
-root@server1 [/usr/local/src/c-ares-1.10.0]# make install
-root@server1 [/usr/local/src/curl-7.46.0]# ./configure --enable-ares=/usr/local/src/c-ares-1.10.0 --enable-http --enable-imap --enable-pop3 --enable-ftp --enable-proxy --enable-tftp --enable-ntlm --enable-static --with-ssl=/usr/local/ssl --enable-ipv6 --enable-shared --disable-ldap --enable-gobher --enable-smtp --with-libidn --disable-rtsp --without-zlib
-root@server1 [/usr/local/src/curl-7.46.0]#make
-root@server1 [/usr/local/src/curl-7.46.0]# make install
-root@server1 [~]# curl-config --version
-==========================================================================================
-libcurl:-
-----------
-rpm -Uvh http://nervion.us.es/city-fan/yum-repo/rhel6/x86_64/city-fan.org-release-1-13.rhel6.noarch.rpm
-
-or
-
-vim  /etc/yum.repos.d/city-fan.repo  --->
-[CityFan]
-name=City Fan Repo
-baseurl=http://nervion.us.es/city-fan/yum-repo/rhel$releasever/$basearch/
-enabled=1
-gpgcheck=0
-:wq
-yum clean all
-yum install libcurl
-
-
-
-To install or upgrade cmm simply do the following from the root shell via SSH:-
--------------------------------------------------------------------------------
-cd /usr/src
-rm -fv /usr/src/cmm.tgz
-wget http://download.configserver.com/cmm.tgz
-tar -xzf cmm.tgz
-cd cmm
-sh install.sh
-rm -Rfv /usr/src/cmm*
-Then login to WHM and scroll to the bottom of the left hand menu and you should see "ConfigServer Mail Manage"
-
-If you want to uninstall, simply:-
-----------------------------------
-cd /usr/src
-rm -fv /usr/src/cmm.tgz
-wget http://download.configserver.com/cmm.tgz
-tar -xzf cmm.tgz
-cd cmm
-sh uninstall.sh
-rm -Rfv /usr/src/cmm*
+                        *************************************************************************************
