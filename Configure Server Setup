@@ -1,0 +1,109 @@
+=========================================================================================
+Configure Server
+=========================================================================================
+
+Configure VPS (Cents os) :-
+===========================
+
+Firewall installation in shell:-
+================================
+cd /usr/src
+rm -fv csf.tgz
+wget https://download.configserver.com/csf.tgz
+tar -xzf csf.tgz
+cd csf
+sh install.sh
+
+-----------------------------
+
+ConfigServer Mail Queues:-
+==========================
+To install or upgrade cmq simply do the following from the root shell via SSH:
+cd /usr/src
+rm -fv /usr/src/cmq.tgz
+wget http://download.configserver.com/cmq.tgz
+tar -xzf cmq.tgz
+cd cmq
+sh install.sh
+rm -Rfv /usr/src/cmq*
+
+Then login to WHM and scroll to the bottom of the left hand menu and you should see "ConfigServer Mail Queues"
+
+If you want to uninstall, simply:-
+==================================
+cd /usr/src
+rm -fv /usr/src/cmq.tgz
+wget http://download.configserver.com/cmq.tgz
+tar -xzf cmq.tgz
+cd cmq
+sh uninstall.sh
+rm -Rfv /usr/src/cmq*
+
+-----------------------------
+
+Maldet installation:-
+=====================
+cd /usr/local/src/
+wget http://www.rfxn.com/downloads/maldetect-current.tar.gz
+tar -xzf maldetect-current.tar.gz
+cd maldetect-*
+sh ./install.sh or sudo sh ./install.sh
+maldet -d && maldet -u
+
+-----------------------------
+
+How to Update CURL with CPanel on CentOS:-
+==========================================
+root@server1 [/usr/local/src]# /usr/bin/curl -V
+root@server1 [~]# cd /usr/local/src/
+root@server1 [/usr/local/src]#tar -xvf c-ares-1.10.0.tar.gz
+root@server1 [/usr/local/src]# wget http://curl.haxx.se/download/curl-7.46.0.tar.gz
+root@server1 [/usr/local/src]#tar -xvf curl-7.46.0.tar.gz
+root@server1 [/usr/local/src/c-ares-1.10.0]# ./configure
+root@server1 [/usr/local/src/c-ares-1.10.0]# make   or  make all-am   or  (refer this)--> <make && make install>
+root@server1 [/usr/local/src/c-ares-1.10.0]# make install
+root@server1 [/usr/local/src/curl-7.46.0]# ./configure --enable-ares=/usr/local/src/c-ares-1.10.0 --enable-http --enable-imap --enable-pop3 --enable-ftp --enable-proxy --enable-tftp --enable-ntlm --enable-static --with-ssl=/usr/local/ssl --enable-ipv6 --enable-shared --disable-ldap --enable-gobher --enable-smtp --with-libidn --disable-rtsp --without-zlib
+root@server1 [/usr/local/src/curl-7.46.0]#make
+root@server1 [/usr/local/src/curl-7.46.0]# make install
+root@server1 [~]# curl-config --version
+==========================================================================================
+libcurl:-
+=========
+rpm -Uvh http://nervion.us.es/city-fan/yum-repo/rhel6/x86_64/city-fan.org-release-1-13.rhel6.noarch.rpm
+
+or
+
+vim  /etc/yum.repos.d/city-fan.repo  --->
+[CityFan]
+name=City Fan Repo
+baseurl=http://nervion.us.es/city-fan/yum-repo/rhel$releasever/$basearch/
+enabled=1
+gpgcheck=0
+:wq
+yum clean all
+yum install libcurl
+
+-----------------------------
+
+To install or upgrade cmm simply do the following from the root shell via SSH:-
+===============================================================================
+cd /usr/src
+rm -fv /usr/src/cmm.tgz
+wget http://download.configserver.com/cmm.tgz
+tar -xzf cmm.tgz
+cd cmm
+sh install.sh
+rm -Rfv /usr/src/cmm*
+Then login to WHM and scroll to the bottom of the left hand menu and you should see "ConfigServer Mail Manage"
+
+-----------------------------
+
+If you want to uninstall, simply:-
+==================================
+cd /usr/src
+rm -fv /usr/src/cmm.tgz
+wget http://download.configserver.com/cmm.tgz
+tar -xzf cmm.tgz
+cd cmm
+sh uninstall.sh
+rm -Rfv /usr/src/cmm*
