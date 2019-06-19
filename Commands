@@ -28,10 +28,6 @@ To check previous history of site :-
 http://web.archive.org/
 
 
-cron run via script:-
----------------------
-/opt/cpanel/ea-php71/root/usr/bin/php -q /home/qbbtknzb/whmcsdata/crons/cron.php all -F -vvv
-
 To clear cache Command:-
 ------------------------
 echo 2 > /proc/sys/vm/drop_caches      ====>  (To free up cache from server)
@@ -103,7 +99,7 @@ To generate the DKIM key for the user (DKIM, SPF):-
 
 
 For this pdo.so error:-
-Fatal error: Class 'PDO' not found in /home/alohakea/public_html/includes/database/database.inc on line 184
+Fatal error: Class 'PDO' not found in /home/username/public_html/includes/database/database.inc on line 184
 put following in php.ini file:
 +=================
 extension="pdo.so"
