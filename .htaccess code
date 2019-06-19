@@ -11,6 +11,14 @@ chattr -R -aui public_html/
 
 -------------------
 
+To set the redirection from http to https use below code under (.htaccess file):-
+=================================================================================
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+-------------------
+
 Default wordpress code in .htaccess:-
 =====================================
 # BEGIN WordPress
