@@ -1,0 +1,66 @@
+**** How to redirect http to https in codeigniter ****
+
+[1 Step]
++++++++++
+Insert this into .htaccess
+==========================
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+
+
+[2 Step]
++++++++++
+If you, specifically want to redirect, above answers are helpful. But if you are doing this because base is "HTTP", then,
+redirecting is not correct method (as it asks for resources).
+Instead, open "application/config/config.php" in your project and change the value of
+
+$config['base_url']
+
+Add "s" in the value
+
+from
+
+$config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'];
+
+How to redirect http to https in codeigniter
+
+to
+
+$config['base_url'] = 'https://'.$_SERVER['HTTP_HOST'];
+
+
+[3 Step]
++++++++++
+First go to the application/config/config.php file and look for this line:
+
+$config['base_url'] = "";
+
+Set it to your URL with the https e.g. https://example.com
+
+$config['base_url'] = "https://example.com";
+
+Then go to your [.htaccess] file and add this line in the example given below.
+
+RewriteRule ^(.*)$ https://example.com/$1 [R,L]
+
+<IfModule mod_rewrite.c>
+    
+    #Options +FollowSymLinks
+    #Options -Indexes
+    RewriteEngine on
+
+    # Send request via index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+    RewriteRule ^(.*)$ https://example.com/$1 [R,L]
+    
+</IfModule>
