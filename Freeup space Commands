@@ -27,6 +27,13 @@ find / -name '*' -size +500M
 
 find /home -type f -size +500000k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }'
 
+Commands:-
+----------
+du -sch /home/* | grep G
+for i in `du -sch /home*/*/.trash | grep M | awk '{print $2}' ` ; do rm -rf $i ; done
+for i in `du -sch /home*/*/.trash | grep G | awk '{print $2}' ` ; do rm -rf $i ; done
+df -hT
+
 echo 3 >/proc/sys/vm/drop_caches
 
 
