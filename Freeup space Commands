@@ -50,3 +50,31 @@ To check how many accounts are on the server
 -----------+
 cat /etc/domainusers | wc -l
 -----------+
+
+========================
+
+Plesk Linux audit:-
+-------------------
+/var/lib/psa/dumps/resellers/
+./var/log/plesk-php56-fpm/error.log
+
+========================
+
+find ./ -mindepth 1 -maxdepth 8 -type d -iname OFFICE
+find ./ -mindepth 1 -maxdepth 8 -type d -name bank | grep -v virtfs
+find -mindepth 1 -maxdepth 8 -type d -name INTERAC
+find -mindepth 1 -maxdepth 8 -type d -name Tangerine
+find -mindepth 1 -maxdepth 8 -type d -name bank_files
+find -mindepth 1 -maxdepth 8 -type d -name HSBC
+find -mindepth 1 -maxdepth 12 -type d -name Desjardins
+find -mindepth 1 -maxdepth 12 -type d -name Meridian
+find -mindepth 1 -maxdepth 12 -type d -name Microsoft
+find -mindepth 1 -maxdepth 12 -type d -name office365
+find -mindepth 1 -maxdepth 12 -type d -name 9x.html
+find -mindepth 1 -maxdepth 12 -type d -name live
+find -mindepth 1 -maxdepth 12 -type d -name Apple
+
+========================
+
+arping -A -c 1 -I eno1 103.108.220.124
+ethtool -s eth0 speed 100 duplex full autoneg off
