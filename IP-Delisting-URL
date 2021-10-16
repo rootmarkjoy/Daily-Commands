@@ -6,6 +6,9 @@ Gmail URL: https://support.google.com/mail/contact/bulk_send_new
 Dnsbl URL: http://www.dnsbl.manitu.net/
 RBL URL: http://www.anti-abuse.org/multi-rbl-check/
 Postmaster URL: https://postmansmtp.com/contact/
+Barracuda Spam URL: https://barracudacentral.org/rbl/removal-request
+SORBS SPAM URL: http://www.sorbs.net/lookup.shtml
+Spamhaus URL: https://check.spamhaus.org/  OR https://www.spamhaus.org/
 
 
 Generate DMARC Record URL:- https://elasticemail.com/dmarc
