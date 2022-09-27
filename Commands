@@ -148,7 +148,7 @@ wget https://wordpress.org/latest.tar.gz
 tar -xf latest.tar.gz 
 mkdir public_html 
 mv wordpress/* public_html/
-chown classicf.classicf public_html -R 
+chown username.username public_html -R 
 chmod 750 public_html
 chgrp nobody public_html
 rm -fr public_html/wp-content 
@@ -160,6 +160,9 @@ rm -fr wordpress latest.tar.gz
 cd public_html;find -type f -exec chmod 644 {} \;
 ---------------------------------------
 
+Delete .htaccess files From all directory:-
+-------------------------------------------
+find . -name \*.htaccess -type f -delete
 
 Litespeed:-
 -----------
