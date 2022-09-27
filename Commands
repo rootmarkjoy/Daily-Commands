@@ -164,6 +164,32 @@ Delete .htaccess files From all directory:-
 -------------------------------------------
 find . -name \*.htaccess -type f -delete
 
+=========================+
+
+SSL Installation via command line:-
+-----------------------------------
+Example =>
+
+=> SSL Directory - /etc/pmta/sygbo_ssl
+$ openssl req -new -newkey rsa:2048 -nodes -keyout example.com.key -out example.com.csr
+
+=> Combine the SSL Cert and Key file's to  common_example.com.pem  
+$ cat example_com.crt example.com.key >> common_example.com.pem
+
+e.g files format:-
+common_example.com.pem
+example.com.ca-bundle.pem
+example_com.crt
+example.com.key
+
+=========================+
+
+Imunify360:-
+------------
+wget https://repo.imunify360.cloudlinux.com/defence360/i360deploy.sh
+bash i360deploy.sh 
+imunify360-agent register IPL
+
 Litespeed:-
 -----------
 wget https://www.litespeedtech.com/packages/cpanel/lsws_whm_autoinstaller.sh
@@ -522,6 +548,15 @@ To remove all the install which has been perform on server:-            ---->  (
 yum history list|awk '$1 ~ /[0-9]+/ {print $1}'| while read a; do yum history undo -y $a; done
 
 
+==============+
+** To  change the PHP Version
+$ update-alternatives --config php
+select php version and ennter
 
+$ a2dismod php7.2
+$ systemctl restart apache2
+$ a2enmod php5.6
+$ systemctl restart apache2
+==============+
 
                         *************************************************************************************
