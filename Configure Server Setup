@@ -107,3 +107,34 @@ tar -xzf cmm.tgz
 cd cmm
 sh uninstall.sh
 rm -Rfv /usr/src/cmm*
+
+-----------------------------
+
+To Install chkrootkit & rkhunter:-
+==================================
+http://www.chkrootkit.org/download/
+http://sourceforge.net/projects/rkhunter/
+cd /usr/local/src/
+wget ftp://ftp.pangeia.com.br/pub/seg/pac/chkrootkit.tar.gz
+tar zxvf chkrootkit.tar.gz
+cd chkrootkit-0.49/
+./chkrootkit
+
+To do a scan:-
+/usr/local/chkrootkit/chkrootkit
+
+You can add a cron entry for running chkrootkit automatically and send a scan report to your mail address.
+Create and add the following entries to “/etc/cron.daily/chkrootkit.sh”
+-------+
+#!/bin/sh
+ (
+ /usr/local/chkrootkit/chkrootkit
+ ) | /bin/mail -s 'CHROOTKIT Daily Run (ServerName)' your@email.com
+-------+
+
+cd ..
+wget http://sourceforge.net/projects/rkhunter/files/rkhunter/1.3.8/rkhunter-1.3.8.tar.gz/download
+tar zxvf rkhunter-1.3.8.tar.gz
+cd rkhunter-1.3.8
+./installer.sh --install
+rkhunter --check
