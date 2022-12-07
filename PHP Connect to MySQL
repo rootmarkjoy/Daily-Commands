@@ -1,5 +1,9 @@
 ##### Open a Connection to MySQL #####
 
+--> MySQLi (object-oriented)
+--> MySQLi (procedural)
+--> PDO
+
 Before we can access data in the MySQL database, we need to be able to connect to the server:-
 
 #### MySQLi Object-Oriented ####
