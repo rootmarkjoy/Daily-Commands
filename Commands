@@ -323,6 +323,10 @@ netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n
 netstat -nap | grep :443 |wc -l          ======>  To check IP connection.
 netstat -atun | awk '{print $5}' | cut -d: -f1 | sed -e '/^$/d' |sort | uniq -c | sort -n      ====>   (To check Ip connection on server)
 
+Below is an Unix command to list all the IP addresses connected to your server on port 80:-
+===========================================================================================
+netstat -tn 2>/dev/null | grep :80 | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head
+
 
 Restore the backup commands:-
 -----------------------------
