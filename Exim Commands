@@ -99,3 +99,4 @@ apf -d 123.123.123.123 "Sending weight loss spam from user01@example.com"
 exiqgrep -i -f | xargs exim -Mrm                                            =====>  (remove all mail with frozen)
 /usr/sbin/exim -bpr | grep frozen | awk '{print $3}' | xargs exim -Mrm      =====>  (Remove frozen mails)
 exim -bpr| grep domainname@domain.com| awk '{print $3}'|xargs exim -Mrm     =====>  (Remove mail queue for particular email account)
+exim -bp | grep -B1 gmail | tail -20                                        =====>  (List of the Gmail ID to delivered)
