@@ -328,6 +328,18 @@ Below is an Unix command to list all the IP addresses connected to your server o
 netstat -tn 2>/dev/null | grep :80 | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr | head
 
 
+To find unique IP addresses of Apache web server, use:-                                              =====>  (Doc Link: https://www.tecmint.com/find-top-ip-address-accessing-apache-web-server/)
+=======================================================
+awk '{print $1}' /var/log/apache2/access.log | sort | uniq -c | sort -nr | head -10
+
+To find unique IP addresses of the Nginx web server, use:-
+==========================================================
+awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -10
+
+Alternatively, you can make use of the grep command to filter the access log for a specific time range or pattern matching.
+grep "2023-10-10 12:00" /var/log/nginx/access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -10
+
+
 Restore the backup commands:-
 -----------------------------
 rsync -a /path/to/backup /path/to/restored/folder ===> (Restore the backup of account)
