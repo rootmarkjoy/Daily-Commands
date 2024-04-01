@@ -28,6 +28,17 @@ To check previous history of site :-
 http://web.archive.org/
 
 
+On the opened terminal page you can try using the following commands:-
+----------------------------------------------------------------------
+Show total Inode usage:
+find . | wc -l
+
+Inode usage for directories and files located in the current directory:
+find . -printf "%h\n" | cut -d/ -f-2 | sort | uniq -c | sort -rn
+
+List of Top50 directories by the number of Inode on those directories (number of results displayed described by “head -50” value):
+find . -xdev -type d -exec sh -c 'echo "$(find "$0" | grep "^$0/[^/]*$" | wc -l) $0"' {} \; | sort -rn | head -50
+
 To clear cache Command:-
 ------------------------
 echo 2 > /proc/sys/vm/drop_caches      ====>  (To free up cache from server)
