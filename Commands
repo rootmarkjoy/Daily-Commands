@@ -23,6 +23,12 @@ How to Install node js in cpanel:-
 ----------------------------------
 https://hostiso.com/how-to-install-setup-node-js/
 
+ImunifyAV & 360Agent Malware report generates commands:-
+---------------------------------------------------------
+imunify-antivirus malware malicious list --user username --limit 500 | awk '{print $8}' > scanresult.txt
+imunify360-agent malware malicious list --user username --limit 100 > /home/username/scanresult.txt
+imunify360-agent malware malicious list --user username --limit 100 > /home/username/scanresult.txt
+
 To check previous history of site :-
 ------------------------------------
 http://web.archive.org/
