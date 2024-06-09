@@ -6,11 +6,11 @@ ini_set("include_path", '/home/username/php:' . ini_get("include_path"));
 require_once "Mail.php";
 
 $from = "Sandra Sender <info@domainname.com>";
-$to = "Ramona Recipient <test.milesweb@gmail.com>";
+$to = "Ramona Recipient <test.hifivehost@gmail.com>";
 $subject = "Hi!";
 $body = "Hi,\n\nHow are you?";
 
-$host = "inr05.solidhosting.pro";
+$host = "textus.serveradept.com";
 $port = "25";
 $username = "info@domainname.com";
 $password = "]y#o~~=7bu+~";
