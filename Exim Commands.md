@@ -224,3 +224,16 @@ Temp Rejects 141 7
 #### It would be possible to merge those reports into one with eximstats like this.
 
 #### Generate the separate reports:
+```sh
+[root@srv001 ~]# eximstats -txt=/root/exim-Sep-01-09.report /root/exim-mainlog-september-01-09-2021.log
+[root@srv001 ~]# eximstats -txt=/root/exim-Sep-10-19.report /root/exim-mainlog-september-10-19-2021.log
+```
+
+#### Then combine the generated reports into a larger range:
+```sh
+[root@srv001 ~]# eximstats -merge /root/exim-Sep*.report > /root/exim-Sep-01-19.report
+```
+
+#### There are many other useful features that you may explore in the manual page for the eximstats utility:
+
+https://linux.die.net/man/8/eximstats 
