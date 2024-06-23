@@ -110,3 +110,84 @@ exiqgrep -i -f | xargs exim -Mrm                                            ====
 exim -bpr| grep domainname@domain.com| awk '{print $3}'|xargs exim -Mrm     =====>  (Remove mail queue for particular email account)
 exim -bp | grep -B1 gmail | tail -20                                        =====>  (List of the Gmail ID to delivered)
 ```
+
+==============================================
+
+### How to use the eximstats utility to generate reports on emails processed by the server.
+
+#### The easiest way to get started with the Eximstats utility is to simply run the following command via SSH as the root user on your cPanel server:
+```sh
+eximstats -txt /var/log/exim_mainlog
+```
+
+#### This is an example of a text report where everything but the section headings have been filtered out. Your server's report will be filled with actual data:
+```sh
+[root@srv001 ~]# eximstats -txt /var/log/exim_mainlog | grep --group-separator="" -B2 "^-"
+
+Grand total summary
+-------------------
+
+
+Deliveries by transport
+-----------------------
+
+
+Messages received per hour (each dot is 1 message)
+--------------------------------------------------
+
+
+Deliveries per hour (each dot is 2 deliveries)
+----------------------------------------------
+
+
+Time spent on the queue: all messages
+-------------------------------------
+
+
+Time spent on the queue: messages with at least one remote delivery
+-------------------------------------------------------------------
+
+
+Relayed messages
+----------------
+
+
+Top 50 mail rejection reasons by message count
+----------------------------------------------
+
+
+Top 50 mail temporary rejection reasons by message count
+--------------------------------------------------------
+
+
+Top 50 sending hosts by message count
+-------------------------------------
+
+
+Top 50 sending hosts by volume
+------------------------------
+
+
+Top 50 host destinations by message count
+-----------------------------------------
+
+
+Top 50 host destinations by volume
+----------------------------------
+
+
+Top 50 local destinations by message count
+------------------------------------------
+
+
+Top 50 local destinations by volume
+-----------------------------------
+
+
+Top 50 rejected ips by message count
+------------------------------------
+
+
+Top 50 temporarily rejected ips by message count
+------------------------------------------------
+```
