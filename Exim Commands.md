@@ -5,26 +5,25 @@ Run the following command to pull the most used mailing script's location from t
 ```sh
 grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n
 ```
-You should get back something like this:
-
+#### It would help if you got back something like this:
 15 /home/userna5/public_html/about-us
 25 /home/userna5/public_html
 7866 /home/userna5/public_html/data
-----------------+
-We can see /home/userna5/public_html/data by far has more deliveries coming in than any others.
 
-==============================================
+#### We can see that /home/userna5/public_html/data has far more deliveries coming in than any others.
 
-Now we can run the following command to see what scripts are located in that directory:-
+
+#### Now we can run the following command to see what scripts are located in that directory:-
+```sh
 ls -lahtr /userna5/public_html/data
-----------------+
-In thise case we got back:
+```
 
+#### In thise case we got back:
 drwxr-xr-x 17 userna5 userna5 4.0K Jan 20 10:25 ../
 -rw-r--r-- 1 userna5 userna5 5.6K Jan 20 11:27 mailer.php
 drwxr-xr-x 2 userna5 userna5 4.0K Jan 20 11:27 ./
-----------------+
-So we can see there is a script called mailer.php in this directory
+
+#### So we can see there is a script called mailer.php in this directory
 
 ==============================================
 
