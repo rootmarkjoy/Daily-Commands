@@ -191,3 +191,36 @@ Top 50 rejected ips by message count
 Top 50 temporarily rejected ips by message count
 ------------------------------------------------
 ```
+
+#### If you wanted to generate a report for only the month of September in 2021, you could use the following script to filter out only September's logs and place them into a new log file in the root home directory:
+```sh
+zgrep -h "2021-09" /var/log/exim_mainlog* | sort -n > /root/exim-mainlog-september-2021.log
+```
+
+#### Then, you would be able to use eximstats on that new September only log file to see the statistics.
+
+#### Here we can see that so far for the month of September my testing server has delivered a total of 509 messages and has received 312:
+```sh
+[root@srv001 ~]# eximstats -txt /root/exim-mainlog-september-2021.log | head -12
+
+Exim statistics from 2021-09-01 00:58:27 to 2021-09-25 23:29:26
+
+Grand total summary
+-------------------
+At least one address
+TOTAL Volume Messages Addresses Hosts Delayed Failed
+Received 17MB 312 37 1 0.3% 6 1.9%
+Delivered 3463KB 509 509 7
+Rejects 1486 603
+Temp Rejects 141 7
+```
+
+#### It is also possible to merge two reports together. For example if you had these two date ranged reports for the first two parts of September:
+```sh
+[root@srv001 ~]# zgrep -E -h "2021-09-0[1-9]" /var/log/exim_mainlog* | sort -n > /root/exim-mainlog-september-01-09-2021.log
+[root@srv001 ~]# zgrep -E -h "2021-09-1[0-9]" /var/log/exim_mainlog* | sort -n > /root/exim-mainlog-september-10-19-2021.log
+```
+
+#### It would be possible to merge those reports into one with eximstats like this.
+
+#### Generate the separate reports:
