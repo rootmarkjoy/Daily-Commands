@@ -6,7 +6,7 @@ Run the following command to pull the most used mailing script's location from t
 grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n
 ```
 #### It would help if you got back something like this:
-15 /home/userna5/public_html/about-us
+15 /home/userna5/public_html/about-us <br>
 25 /home/userna5/public_html
 7866 /home/userna5/public_html/data
 
