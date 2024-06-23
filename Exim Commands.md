@@ -7,8 +7,8 @@ grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' 
 ```
 #### It would help if you got back something like this:
 15 /home/userna5/public_html/about-us <br>
-25 /home/userna5/public_html
-7866 /home/userna5/public_html/data
+25 /home/userna5/public_html <br>
+7866 /home/userna5/public_html/data <br>
 
 #### We can see that /home/userna5/public_html/data has far more deliveries coming in than any others.
 
@@ -19,9 +19,9 @@ ls -lahtr /userna5/public_html/data
 ```
 
 #### In thise case we got back:
-drwxr-xr-x 17 userna5 userna5 4.0K Jan 20 10:25 ../
--rw-r--r-- 1 userna5 userna5 5.6K Jan 20 11:27 mailer.php
-drwxr-xr-x 2 userna5 userna5 4.0K Jan 20 11:27 ./
+drwxr-xr-x 17 userna5 userna5 4.0K Jan 20 10:25 ../ <br>
+-rw-r--r-- 1 userna5 userna5 5.6K Jan 20 11:27 mailer.php <br>
+drwxr-xr-x 2 userna5 userna5 4.0K Jan 20 11:27 ./ <br>
 
 #### So we can see there is a script called mailer.php in this directory
 
@@ -32,10 +32,10 @@ grep "mailer.php" /home/userna5/access-logs/example.com | awk '{print $1}' | sor
 ----------------+
 You should get back something similar to this:
 
-2 123.123.123.126
-2 123.123.123.125
-2 123.123.123.124
-7860 123.123.123.123
+2 123.123.123.126 <br>
+2 123.123.123.125 <br>
+2 123.123.123.124 <br>
+7860 123.123.123.123 <br>
 ----------------+
 We can see the IP address 123.123.123.123 was using our mailer script in a malicious nature.
 
@@ -55,10 +55,10 @@ awk -F"T=\"" '/<=/ {print $2}' /var/log/exim_mainlog | cut -d\" -f1 | sort | uni
 --------------+
 You should get back something that looks like this:
 
-285 Out of Office
-303 [Forum reply] Please moderate
-578 New Account
-1764 Melt Fat Naturally
+285 Out of Office <br>
+303 [Forum reply] Please moderate <br>
+578 New Account <br>
+1764 Melt Fat Naturally <br>
 -------------+
 So in this case we can see that by far the subject Melt Fat Naturally is the most duplicated subject currently in the Exim mail log.
 
@@ -69,8 +69,8 @@ grep "Melt Fat Naturally" /var/log/exim_mainlog | awk '{print $6}' | sort | uniq
 -------------+
 You should end up with some results like this:
 
-1 test@example.com
-1762 user01@example.com
+1 test@example.com <br>
+1762 user01@example.com <br>
 -------------+
 So in this case we can see that it looks like the user01@example.com account was used to relay this spam message.
 
