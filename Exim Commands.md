@@ -1,9 +1,10 @@
 ### How to Find a spam script location with Exim:-
-==============================================
+===================================================
 
 Run the following command to pull the most used mailing script's location from the Exim mail log:-
+```sh
 grep cwd /var/log/exim_mainlog | grep -v /var/spool | awk -F"cwd=" '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -n
-----------------+
+```
 You should get back something like this:
 
 15 /home/userna5/public_html/about-us
