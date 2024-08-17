@@ -1,10 +1,12 @@
-#### To check Postfix logs, mail delivery logs, and view the mail queue, you can use the following commands:
+# POSTFIX COMMANDS TO CHECK LOGS
 
-#### Checking Postfix Logs
+To check Postfix logs, mail delivery logs, and view the mail queue, you can use the following commands:
 
-#### Postfix logs are usually located in the /var/log directory. The most common log files are mail.log, maillog, and syslog. You can use various commands to view these logs:
+Checking Postfix Logs
 
-#### Viewing the last few lines of the log:
+Postfix logs are usually located in the /var/log directory. The most common log files are mail.log, maillog, and syslog. You can use various commands to view these logs:
+
+Viewing the last few lines of the log:
 
 ```sh
 tail -f /var/log/mail.log
@@ -16,7 +18,7 @@ tail -f /var/log/mail.log
 tail -f /var/log/maillog
 ```
 
-#### Viewing the log with filtering for specific keywords (e.g., "error" or "warning"):
+Viewing the log with filtering for specific keywords (e.g., "error" or "warning"):
 
 ```sh
 grep 'error' /var/log/mail.log
