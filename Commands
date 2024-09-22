@@ -14,6 +14,12 @@ To set privilage for reseller via command:-
 -------------------------------------------
 /usr/local/cpanel/scripts/fix_reseller_acls --add-default-privs --reseller <Username>
 
+IPTables Commands
+-----------------
+iptables -L -nv --line-number
+iptables-save > /home/iptables.savedup.rules
+iptables-restore < /home/iptables.savedup.rules
+
 magento-test-file.php for check the missing module:-
 ====================================================
 https://gist.github.com/atomicpages/4383809
