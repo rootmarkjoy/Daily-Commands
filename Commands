@@ -326,6 +326,7 @@ cat /etc/letsencrypt-cpanel.licence      ----->   (letsencrypt path)
 For auditing of account:-
 -------------------------
 # du -sch *
+# du -sch ./* | grep 'G' |sort -h |tail -5
 
 
 To install Zend Optimizer:-
@@ -503,18 +504,9 @@ link : http://whatismyipaddress.com/blacklist-check
 link : http://www.mxtoolbox.com/blacklists.aspx
 
 
-Default wordpress code in .htaccess:-
+Access Apache logs:-
 --------------------------------------
-# BEGIN WordPress
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
-</IfModule>                          
-# END WordPress
+cat /usr/local/apache/access_log | grep <ip> | wc -l
 
 -------------------
 chattr code for .htaccess:-
