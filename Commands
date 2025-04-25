@@ -25,6 +25,23 @@ magento-test-file.php for check the missing module:-
 https://gist.github.com/atomicpages/4383809
 https://gist.github.com/mhhansen/9493703
 
+To check dns zone using powerdns command line:-
+-----------------------------------------------
+pdnsutil list-zone example.com
+systemctl status pdns
+nslookup example.com your-powerdns-server-ip
+
+PowerDns commands:-
+===================
+named-checkzone example.com /var/named/example.com.db
+pdns_control bind-reload-now example.com
+/scripts/dnscluster synczone example.com
+rndc reload   --->  (Not need to run everytime)
+
+CLI to check the database detail:-
+==================================
+cat wp-config.php | grep DB
+
 How to Install node js in cpanel:-
 ----------------------------------
 https://hostiso.com/how-to-install-setup-node-js/
@@ -80,6 +97,9 @@ find out spamming php script using below command also:-
 -------------------------------------------------------
 tail -n 1000 /var/log/exim_mainlog | grep /home
 
+To see which IPs are targeting xmlrpc.php run:-
+================================================
+grep "xmlrpc.php" /var/log/httpd/domains/*.log | awk '{print $1}' | sort | uniq -c | sort -nr | head
 
 ------------------------------------
 Login node via ssh:-
