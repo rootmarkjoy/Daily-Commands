@@ -3,6 +3,10 @@ Free space from server:-
 
 find ./ -mindepth 1 -maxdepth 3 -size +1G -type f
 
+find ./ -mindepth 1 -maxdepth 3 -size +1G -type f -exec du -h {} +
+
+find ./ -mindepth 1 -maxdepth 3 -size +1G -type f -exec du -BG {} + | sort -hr  --->  (If you want the sizes specifically in GB (without KB/MB/etc), use:)
+
 for i in `find -mindepth 1 -maxdepth 2 -type d -name .trash`; do rm -frv $i; done
 
 find -mindepth 1 -maxdepth 7 -type f -name "*.wpress" -exec rm -f {} \;
